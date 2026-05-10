@@ -14,5 +14,15 @@ pipeline{
                 sh 'docker build -t jenkins-demo .'
             }
         }
+
+        stage('Deploy Container'){
+             steps{
+                 sh 'docker stop springboot-container || true'
+                 sh 'docker rm springboot-container || true'
+                 sh 'docker run -d -p 8081:8080 --name springboot-container jenkins-demo'
+             }
+        }
+
+
     }
 }
